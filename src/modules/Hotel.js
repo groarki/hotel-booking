@@ -3,11 +3,12 @@ const PremiumRoom = require("./PremiumRoom");
 
 class Hotel {
   constructor(name) {
-    (this.rooms = []), (this.name = name), this.loadFromLocalStorage();
+    (this.rooms = []), (this.name = name);
   }
 
   addRoom(room) {
     this.rooms.push(room);
+    this.saveToLocalStorage();
     return `Room ${room.number} has been added`;
   }
 
@@ -47,10 +48,11 @@ class Hotel {
           room = new PremiumRoom(
             roomData.number,
             roomData.type,
-            roomData.premiumService
+            roomData.premiumService,
+            this
           );
         } else {
-          room = new Room(roomData.number, roomData.type);
+          room = new Room(roomData.number, roomData.type, this);
         }
 
         room.isAvailable = roomData.isAvailable;

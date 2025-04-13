@@ -19,6 +19,7 @@
         padding: 36px;
         margin: 12px;
         width: 380px;
+        height: fit-content;
         background-color: rgba(190, 190, 190, 0.2);
         box-shadow: 0 0 5px rgba(51, 0, 102, 0.5);
       }
@@ -39,10 +40,20 @@
         flex-direction: row;
         justify-content: center;
       }
+      .rev-span {
+        color: black;
+        font-weight: 600;
+        font-style: bold;
+      }
     </style>
   </head>
   <body>
     <h1>Hotel Booking System</h1>
+    <input id="username" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" />
+    <button onclick="registerUser()">Register</button>
+    <button onclick="loginUser()">Log in</button>
+    <p id="userStatus"></p>
     <div id="roomsContainer"></div>
     <script src="./dist/bundle.js"></script>
   </body>

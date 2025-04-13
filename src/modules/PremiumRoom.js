@@ -1,8 +1,8 @@
 const Room = require("./Room");
 
 class PremiumRoom extends Room {
-  constructor(number, type, premiumService) {
-    super(number, type);
+  constructor(number, type, premiumService, hotel) {
+    super(number, type, hotel);
     this.premiumService = premiumService;
   }
 

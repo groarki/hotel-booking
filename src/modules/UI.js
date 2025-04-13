@@ -1,3 +1,10 @@
+const {
+  bookRoom,
+  cancelBooking,
+  loadReviews,
+  registerUser,
+} = require("../index");
+
 class UI {
   constructor(hotel) {
     this.hotel = hotel;
@@ -26,6 +33,7 @@ class UI {
         <button onclick="cancelBooking(${room.number})" ${
         room.isAvailable ? "disabled" : ""
       }>Cancel</button>
+      <button onclick="loadReviews(this)">Load Reviews</button>
         `;
       container.appendChild(roomDiv);
     });

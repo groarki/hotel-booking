@@ -1,13 +1,23 @@
 class Room {
-  constructor(number, type) {
+  #cardNumber;
+
+  constructor(number, type, hotel) {
     this.number = number;
     this.type = type;
     this.isAvailable = true;
+    this.hotel = hotel;
   }
-  book() {
+  book(username) {
+    this.setCardNumber(prompt("Enter your card: "));
+
+    if (!this.#cardNumber) {
+      return "Error: Booking canceled due to invalid card";
+    }
     this.isAvailable = false;
     this.saveChanges();
-    return `Room ${this.number} has been booked`;
+    return `Room ${
+      this.number
+    } has been booked by ${username}\nCard Number: ${this.getCardNumber()} `;
   }
   cancelBooking() {
     this.isAvailable = true;
@@ -16,7 +26,20 @@ class Room {
   }
 
   saveChanges() {
-    global.hotelInstance.saveToLocalStorage();
+    this.hotel.saveToLocalStorage();
+  }
+
+  setCardNumber(number) {
+    if (!number || number?.length < 16) {
+      alert("Card number must be 16 digits long");
+      return;
+    }
+
+    this.#cardNumber = number;
+  }
+  getCardNumber() {
+    if (!this.#cardNumber) return "Invalid card number";
+    return "**** **** ****" + this.#cardNumber.slice(-4);
   }
 }
 
