@@ -1,9 +1,4 @@
-const {
-  bookRoom,
-  cancelBooking,
-  loadReviews,
-  registerUser,
-} = require("../index");
+import { bookRoom, cancelBooking, loadReviews, registerUser } from "../index";
 
 class UI {
   constructor(hotel) {
@@ -40,4 +35,4 @@ class UI {
   }
 }
 
-module.exports = UI;
+export default UI;

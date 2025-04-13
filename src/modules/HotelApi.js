@@ -9,4 +9,4 @@ class HotelApi {
   }
 }
 
-module.exports = HotelApi;
+export default HotelApi;

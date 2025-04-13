@@ -6,7 +6,7 @@ class User {
   }
   setPassword(password) {
     if (password.length < 6) {
-      throw new Error("Password must be minimum 6 characters long");
+      throw alert("Password must be minimum 6 characters long");
     }
     this.#password = password;
   }
@@ -27,4 +27,4 @@ class User {
   }
 }
 
-module.exports = User;
+export default User;

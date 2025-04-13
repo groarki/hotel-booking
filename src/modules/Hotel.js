@@ -1,5 +1,5 @@
-const Room = require("./Room");
-const PremiumRoom = require("./PremiumRoom");
+import Room from "./Room";
+import PremiumRoom from "./PremiumRoom";
 
 class Hotel {
   constructor(name) {
@@ -63,4 +63,4 @@ class Hotel {
   }
 }
 
-module.exports = Hotel;
+export default Hotel;

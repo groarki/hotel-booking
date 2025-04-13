@@ -1,10 +1,12 @@
-const Hotel = require("./modules/Hotel");
-const Room = require("./modules/Room");
-const UI = require("./modules/UI");
-const PremiumRoom = require("./modules/PremiumRoom");
-const User = require("./modules/Users");
-const UserManager = require("./modules/userManager");
-const HotelApi = require("./modules/HotelApi");
+import Hotel from "./modules/Hotel";
+import Room from "./modules/Room";
+import UI from "./modules/UI";
+import PremiumRoom from "./modules/PremiumRoom";
+import User from "./modules/Users";
+import UserManager from "./modules/userManager";
+import HotelApi from "./modules/HotelApi";
+
+import "./styles.scss";
 
 const hotel = new Hotel("Aliance Hotel");
 hotel.loadFromLocalStorage();
@@ -32,7 +34,7 @@ if (hotel.rooms.length === 0) {
 const ui = new UI(hotel);
 ui.renderRooms();
 
-window.bookRoom = function (number) {
+function bookRoom(number) {
   const room = hotel.rooms.find((r) => r.number === number);
   const userLogin = document.getElementById("username").value;
   const userPass = document.getElementById("password").value;
@@ -43,17 +45,17 @@ window.bookRoom = function (number) {
   }
   alert(room.book(userLogin));
   ui.renderRooms();
-};
+}
 
-window.cancelBooking = function (number) {
+function cancelBooking(number) {
   const room = hotel.rooms.find((r) => r.number === number);
   if (room) {
     alert(room.cancelBooking());
     ui.renderRooms();
   }
-};
+}
 
-window.registerUser = function () {
+function registerUser() {
   const userLogin = document.getElementById("username").value;
   const userPass = document.getElementById("password").value;
   const registered = userManager.register(userLogin, userPass);
@@ -61,9 +63,9 @@ window.registerUser = function () {
     document.getElementById("userStatus").textContent =
       "Registration succeed! Log in please";
   }
-};
+}
 
-window.loginUser = function () {
+function loginUser() {
   const userLogin = document.getElementById("username").value;
   const userPass = document.getElementById("password").value;
   const logged = userManager.login(userLogin, userPass);
@@ -72,9 +74,9 @@ window.loginUser = function () {
       "userStatus"
     ).textContent = `Logged as ${userLogin}`;
   }
-};
+}
 
-window.loadReviews = async function (btn) {
+async function loadReviews(btn) {
   const roomDiv = btn.closest(".Room");
   const isComments = roomDiv.querySelector(".commentsCont");
 
@@ -97,6 +99,12 @@ window.loadReviews = async function (btn) {
   `;
 
   roomDiv.insertAdjacentHTML("beforeend", markup);
-};
+}
 
-module.exports = { bookRoom, cancelBooking, loadReviews, registerUser };
+export { bookRoom, cancelBooking, loadReviews, registerUser, loginUser };
+
+window.bookRoom = bookRoom;
+window.cancelBooking = cancelBooking;
+window.registerUser = registerUser;
+window.loadReviews = loadReviews;
+window.loginUser = loginUser;

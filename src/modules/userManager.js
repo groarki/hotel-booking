@@ -1,4 +1,4 @@
-const User = require("./Users");
+import User from "./Users";
 
 class UserManager {
   constructor() {
@@ -8,7 +8,7 @@ class UserManager {
 
   register(username, password) {
     const exist = this.users.find((user) => user.username === username);
-    if (exist) throw new Error("This username is already taken");
+    if (exist) alert("This username is already taken");
     const user = new User(username, password);
     this.users.push(user);
     this.saveUser();
@@ -41,4 +41,4 @@ class UserManager {
   }
 }
 
-module.exports = UserManager;
+export default UserManager;
