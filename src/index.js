@@ -1,10 +1,8 @@
 import Hotel from "./modules/Hotel";
-import Room from "./modules/Room";
-import UI from "./modules/UI";
-import PremiumRoom from "./modules/PremiumRoom";
-import User from "./modules/Users";
-import UserManager from "./modules/userManager";
-import HotelApi from "./modules/HotelApi";
+import { Room, PremiumRoom } from "./modules/Room";
+import UI from "./modules/servises/UI";
+import UserManager from "./modules/servises/userManager";
+import HotelApi from "./modules/servises/HotelApi";
 
 import "./styles.scss";
 

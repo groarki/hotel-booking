@@ -1,5 +1,4 @@
-import Room from "./Room";
-import PremiumRoom from "./PremiumRoom";
+import { Room, PremiumRoom } from "./Room";
 
 class Hotel {
   constructor(name) {

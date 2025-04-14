@@ -1,5 +1,3 @@
-import { bookRoom, cancelBooking, loadReviews, registerUser } from "../index";
-
 class UI {
   constructor(hotel) {
     this.hotel = hotel;

@@ -1,4 +1,4 @@
-import User from "./Users";
+import User from "../Users";
 
 class UserManager {
   constructor() {
