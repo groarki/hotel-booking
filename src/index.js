@@ -7,9 +7,23 @@ import HotelApi from "./modules/servises/HotelApi";
 import "./styles.scss";
 
 const hotel = new Hotel("Aliance Hotel");
+const userManager = new UserManager();
 hotel.loadFromLocalStorage();
 
-const userManager = new UserManager();
+let userLogged = null;
+
+const savedUser = sessionStorage.getItem("loggedInUsers");
+if (savedUser) {
+  const user = JSON.parse(savedUser);
+  userLogged = user.username;
+  document.getElementById("userStatus").textContent = `Logged as ${userLogged}`;
+}
+
+const ui = new UI(hotel, userLogged);
+
+ui.updateUser(userLogged);
+updateLogStatus();
+ui.renderRooms();
 
 if (hotel.rooms.length === 0) {
   const room1 = new Room(1, "single", hotel);
@@ -29,19 +43,23 @@ if (hotel.rooms.length === 0) {
   hotel.saveToLocalStorage();
 }
 
-const ui = new UI(hotel);
-ui.renderRooms();
-
 function bookRoom(number) {
-  const room = hotel.rooms.find((r) => r.number === number);
-  const userLogin = document.getElementById("username").value;
-  const userPass = document.getElementById("password").value;
-  const logged = userManager.login(userLogin, userPass);
-  if (!logged) {
+  if (!userLogged) {
     alert("Log in for booking!");
     return;
   }
-  alert(room.book(userLogin));
+
+  const room = hotel.rooms.find((r) => r.number === number);
+  room.book();
+  room.bookedBy = userLogged;
+
+  hotel.saveToLocalStorage();
+
+  alert(
+    `Room ${room.number} has been booked by ${
+      room.bookedBy
+    }\nCard Number: ${room.getCardNumber()}`
+  );
   ui.renderRooms();
 }
 
@@ -49,6 +67,10 @@ function cancelBooking(number) {
   const room = hotel.rooms.find((r) => r.number === number);
   if (room) {
     alert(room.cancelBooking());
+    room.bookedBy = null;
+
+    hotel.saveToLocalStorage();
+
     ui.renderRooms();
   }
 }
@@ -64,16 +86,42 @@ function registerUser() {
 }
 
 function loginUser() {
-  const userLogin = document.getElementById("username").value;
-  const userPass = document.getElementById("password").value;
+  const userLogin = document.getElementById("username").value.trim();
+  const userPass = document.getElementById("password").value.trim();
+
   const logged = userManager.login(userLogin, userPass);
   if (logged) {
     document.getElementById(
       "userStatus"
     ).textContent = `Logged as ${userLogin}`;
+    sessionStorage.setItem("loggedInUsers", JSON.stringify(logged));
+    userLogged = userLogin;
+    ui.updateUser(userLogged);
+    updateLogStatus();
+    ui.renderRooms();
   }
 }
+function logoutUser() {
+  sessionStorage.removeItem("loggedInUsers");
+  userLogged = null;
+  ui.updateUser(userLogged);
+  updateLogStatus();
+  ui.renderRooms();
+  alert("You are logged out");
+}
 
+function updateLogStatus() {
+  const status = document.getElementById("userStatus");
+  const logoutBtn = document.querySelector(".logout");
+  if (userLogged) {
+    status.style.color = "green";
+    logoutBtn.style.display = "inline-block";
+  } else {
+    status.style.color = "gray";
+    status.textContent = "Not logged in";
+    logoutBtn.style.display = "none";
+  }
+}
 async function loadReviews(btn) {
   const roomDiv = btn.closest(".Room");
   const isComments = roomDiv.querySelector(".commentsCont");
@@ -106,3 +154,4 @@ window.cancelBooking = cancelBooking;
 window.registerUser = registerUser;
 window.loadReviews = loadReviews;
 window.loginUser = loginUser;
+window.logoutUser = logoutUser;

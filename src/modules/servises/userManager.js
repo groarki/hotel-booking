@@ -18,7 +18,8 @@ class UserManager {
   login(username, password) {
     const user = this.users.find((u) => u.username === username);
     if (!user) {
-      return null;
+      alert("User with this username is not found ;(");
+      return;
     }
     if (!user.validatePassword(password)) {
       alert("Password is incorrect. Try again");

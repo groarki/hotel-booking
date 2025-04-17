@@ -1,16 +1,18 @@
-import { resolve } from "path";
+const path = require("path");
 
-export const entry = "./src/index.js";
-export const output = {
-  filename: "bundle.js",
-  path: resolve(__dirname, "dist"),
-};
-export const mode = "development";
-export const module = {
-  rules: [
-    {
-      test: /\.scss$/,
-      use: ["style-loader", "css-loader", "sass-loader"],
-    },
-  ],
+module.exports = {
+  entry: "./src/index.js",
+  output: {
+    filename: "bundle.js",
+    path: path.resolve(__dirname, "dist"),
+  },
+  mode: "development",
+  module: {
+    rules: [
+      {
+        test: /\.scss$/,
+        use: ["style-loader", "css-loader", "sass-loader"],
+      },
+    ],
+  },
 };

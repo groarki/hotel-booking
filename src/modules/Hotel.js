@@ -21,6 +21,7 @@ class Hotel {
         number: room.number,
         type: room.type,
         isAvailable: room.isAvailable,
+        bookedBy: room.bookedBy,
       };
 
       if (room.premiumService) {
@@ -55,6 +56,7 @@ class Hotel {
         }
 
         room.isAvailable = roomData.isAvailable;
+        room.bookedBy = roomData.bookedBy || null;
 
         this.rooms.push(room);
       });
