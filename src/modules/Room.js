@@ -9,7 +9,6 @@ class Room {
     this.bookedBy;
   }
   book() {
-    this.setCardNumber(prompt("Enter your card: "));
     this.isAvailable = false;
     this.saveChanges();
   }

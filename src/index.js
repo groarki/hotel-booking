@@ -51,6 +51,7 @@ function bookRoom(number) {
 
   const room = hotel.rooms.find((r) => r.number === number);
   room.book();
+  room.setCardNumber(prompt("Enter your card: "));
   room.bookedBy = userLogged;
 
   hotel.saveToLocalStorage();
