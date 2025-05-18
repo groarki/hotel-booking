@@ -160,8 +160,33 @@ async function loadReviews(btn, number) {
     roomDiv.insertAdjacentHTML("beforeend", `<p>Error loading reviews.</p>`);
   }
 }
+async function addReview() {
+  const email = document.getElementById("reviewEmail").value.trim();
+  const roomNumber = parseInt(
+    document.getElementById("reviewRoom").value.trim()
+  );
+  const body = document.getElementById("reviewBody").value.trim();
+  const response = await fetch("http://localhost:3000/reviews", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ roomNumber, email, body }),
+  });
+  if (response.ok) {
+    alert("Review added!");
+    loadReviews(roomNumber);
+  } else {
+    alert("Failed to add review.");
+  }
+}
 
-export { bookRoom, cancelBooking, loadReviews, registerUser, loginUser };
+export {
+  bookRoom,
+  cancelBooking,
+  loadReviews,
+  registerUser,
+  loginUser,
+  addReview,
+};
 
 window.bookRoom = bookRoom;
 window.cancelBooking = cancelBooking;
@@ -169,3 +194,4 @@ window.registerUser = registerUser;
 window.loadReviews = loadReviews;
 window.loginUser = loginUser;
 window.logoutUser = logoutUser;
+window.addReview = addReview;
