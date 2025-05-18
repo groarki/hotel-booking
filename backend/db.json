@@ -1,0 +1,10 @@
+{
+  "reviews": [
+    {
+      "id": "xK4hyRIlmdJY4Gdqki3LL",
+      "roomNumber": 101,
+      "email": "test@example.com",
+      "body": "Świetny pokój!"
+    }
+  ]
+}

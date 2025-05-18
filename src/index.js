@@ -123,7 +123,8 @@ function updateLogStatus() {
     logoutBtn.style.display = "none";
   }
 }
-async function loadReviews(btn) {
+async function loadReviews(btn, number) {
+  // тепер передаємо room як об'єкт
   const roomDiv = btn.closest(".Room");
   const isComments = roomDiv.querySelector(".commentsCont");
 
@@ -132,20 +133,33 @@ async function loadReviews(btn) {
     return;
   }
 
-  const res = await HotelApi.loadReviews();
-  const threeComments = res.slice(0, 3);
-  const markup = `
-    <div class="commentsCont">
-      <h4>Reviews</h4>
-      ${threeComments
-        .map(({ email, body }) => {
-          return `<p><span class="rev-span">${email}:</span> ${body}</p>`;
-        })
-        .join("")}
-    </div>
-  `;
+  try {
+    const response = await fetch("/reviews");
+    const reviews = await response.json();
 
-  roomDiv.insertAdjacentHTML("beforeend", markup);
+    const sample = reviews.filter((r) => r.roomNumber === number).slice(0, 3);
+
+    const markup = `
+      <div class="commentsCont">
+        <h4>Reviews</h4>
+        ${
+          sample.length > 0
+            ? sample
+                .map(
+                  ({ email, body }) =>
+                    `<p><span class="rev-span">${email}:</span> ${body}</p>`
+                )
+                .join("")
+            : "<p>No reviews for this room yet.</p>"
+        }
+      </div>
+    `;
+
+    roomDiv.insertAdjacentHTML("beforeend", markup);
+  } catch (error) {
+    console.error("Error loading reviews:", error);
+    roomDiv.insertAdjacentHTML("beforeend", `<p>Error loading reviews.</p>`);
+  }
 }
 
 export { bookRoom, cancelBooking, loadReviews, registerUser, loginUser };

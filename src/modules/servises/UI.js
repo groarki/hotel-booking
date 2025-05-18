@@ -37,7 +37,7 @@ class UI {
           ? "disabled"
           : ""
       }>Cancel</button>
-      <button onclick="loadReviews(this)">Load Reviews</button>
+      <button onclick="loadReviews(this, ${room.number})">Load Reviews</button>
         `;
       container.appendChild(roomDiv);
     });
