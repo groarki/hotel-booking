@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Hotel Booking System</title>
+  </head>
+  <body>
+    <h1>Hotel Booking System</h1>
+    <input id="username" placeholder="Username" />
+    <input id="password" type="password" placeholder="Password" required />
+    <button onclick="registerUser()">Register</button>
+    <button onclick="loginUser()">Log in</button>
+    <button class="logout" onclick="logoutUser()" style="display: none">
+      Log Out
+    </button>
+    <p id="userStatus"></p>
+    <div id="roomsContainer"></div>
+    <script src="./dist/bundle.js"></script>
+  </body>
+</html>
