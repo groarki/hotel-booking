@@ -16,10 +16,13 @@
     </button>
     <p id="userStatus"></p>
     <div id="roomsContainer"></div>
-    <input type="text" id="reviewEmail" placeholder="Your email" />
-    <input type="number" id="reviewRoom" placeholder="Room number" />
-    <textarea id="reviewBody" placeholder="Your review"></textarea>
-    <button onclick="addReview()">Add Review</button>
+    <h3 id="reviewHead">Leave your review</h3>
+    <form id="reviewForm" onsubmit="addReview(event)">
+      <input type="text" id="reviewEmail" placeholder="Your email" />
+      <input type="number" id="reviewRoom" placeholder="Room number" />
+      <textarea id="reviewBody" placeholder="Your review"></textarea>
+      <button id="reviewBtn">Add Review</button>
+    </form>
     <script src="./dist/bundle.js"></script>
   </body>
 </html>

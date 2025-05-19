@@ -160,21 +160,32 @@ async function loadReviews(btn, number) {
     roomDiv.insertAdjacentHTML("beforeend", `<p>Error loading reviews.</p>`);
   }
 }
-async function addReview() {
+async function addReview(event) {
+  event.preventDefault();
+
   const email = document.getElementById("reviewEmail").value.trim();
   const roomNumber = parseInt(
     document.getElementById("reviewRoom").value.trim()
   );
   const body = document.getElementById("reviewBody").value.trim();
-  const response = await fetch("http://localhost:3000/reviews", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ roomNumber, email, body }),
-  });
-  if (response.ok) {
-    alert("Review added!");
-    loadReviews(roomNumber);
-  } else {
+
+  if (!email || !roomNumber || !body) {
+    alert("All fields are required.");
+    return;
+  }
+
+  try {
+    const response = await fetch("http://localhost:3000/reviews", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roomNumber, email, body }),
+    });
+    if (response.ok) {
+      alert("Review added!");
+      loadReviews(event.target, roomNumber);
+    }
+  } catch (error) {
+    console.error("Error adding review:", error);
     alert("Failed to add review.");
   }
 }

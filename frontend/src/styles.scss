@@ -54,3 +54,42 @@ body {
 #userStatus {
     color: green;
 }
+#reviewHead {
+    margin: 16px 0;
+}
+#reviewForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 8px
+}
+#reviewEmail,
+#reviewRoom {
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 8px;
+    width: 180px;
+    height: 36px;
+    background-color: #e4e5e6;
+    border: none;
+}
+#reviewBody {
+    box-sizing: border-box;
+    border-radius: 8px;
+    padding: 8px;
+    width: 180px;
+    background-color: #e4e5e6;
+    border: none;
+    resize: none;
+
+}
+#reviewBtn {
+    border: none;
+    padding: 8px;
+    width: 148px;
+    height: 36px;
+    border-radius: 8px;
+    color: #313130;
+    background-color: #BCDFD1;
+    cursor: pointer;
+}
