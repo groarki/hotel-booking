@@ -101,6 +101,7 @@ function loginUser() {
     ui.renderRooms();
   }
 }
+
 function logoutUser() {
   sessionStorage.removeItem("loggedInUsers");
   userLogged = null;
@@ -137,7 +138,10 @@ async function loadReviews(btn, number) {
     const reviews = await response.json();
 
     const sample = reviews.filter((r) => r.roomNumber === number).slice(0, 3);
-
+    // async function editReview(id) {
+    //   const reviewId = await fetch(`http://localhost:3000/reviews/:${id}`);
+    //   console.log(reviewId);
+    // }
     const markup = `
       <div class="commentsCont">
         <h4>Reviews</h4>
@@ -146,7 +150,10 @@ async function loadReviews(btn, number) {
             ? sample
                 .map(
                   ({ email, body }) =>
-                    `<p><span class="rev-span">${email}:</span> ${body}</p>`
+                    `<p><span class="rev-span">${email}:</span> ${body}</p>
+                  <button onclick()>
+                  Edit
+                  <button/>`
                 )
                 .join("")
             : "<p>No reviews for this room yet.</p>"
