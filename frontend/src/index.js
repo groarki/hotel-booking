@@ -126,11 +126,11 @@ function updateLogStatus() {
 
 async function editReview(id) {
   const roomNumber = parseInt(
-    window.prompt("Wprowadż numer pokoju dla recenji")
+    window.prompt("Wprowadż numer pokoju dla recenzji")
   );
 
   if (isNaN(roomNumber) || roomNumber <= 0)
-    return window.alert("Wprowadż istniejący numer pokoju");
+    return alert("Wprowadż istniejący numer pokoju");
 
   const email = window.prompt("Wprowadż email");
   const body = window.prompt("Zmień recenzje");
@@ -144,11 +144,27 @@ async function editReview(id) {
       body: JSON.stringify({ roomNumber, email, body }),
     });
     if (response.ok) {
-      window.alert("Recenjia została zmieniona!");
+      alert("Recenzja została zmieniona!");
       location.reload();
     }
   } catch (error) {
-    console.log(error);
+    alert("Error while editing review:", error);
+  }
+}
+async function deleteReview(id, roomNumber) {
+  const confirmed = confirm("Napewno chcesz usunąć tę recenzje?");
+  if (!confirmed) return;
+  try {
+    const response = await fetch(`http://localhost:3000/reviews/${id}`, {
+      method: "DELETE",
+      headers: { "Content-Type": "application/json" },
+    });
+    if (response.ok) {
+      alert(`Recenzja została usunięta z pokoju nr ${roomNumber}`);
+      location.reload();
+    }
+  } catch (error) {
+    alert("Error while deleting review", error);
   }
 }
 
@@ -176,9 +192,8 @@ async function loadReviews(btn, number) {
                 .map(
                   ({ email, body, id }) =>
                     `<p><span class="rev-span">${email}:</span> ${body}</p>
-                  <button onclick="editReview('${id}')">
-                  Edit
-                  </button>`
+                  <button onclick="editReview('${id}')">Edit</button>
+                  <button onclick="deleteReview('${id}', '${number}')">Delete</button>`
                 )
                 .join("")
             : "<p>No reviews for this room yet.</p>"
@@ -240,3 +255,4 @@ window.loginUser = loginUser;
 window.logoutUser = logoutUser;
 window.addReview = addReview;
 window.editReview = editReview;
+window.deleteReview = deleteReview;
