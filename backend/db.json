@@ -3,8 +3,8 @@
     {
       "id": "xK4hyRIlmdJY4Gdqki3LL",
       "roomNumber": 1,
-      "email": "test@example.com",
-      "body": "Świetny pokój!"
+      "email": "test@mail.com",
+      "body": "abudabi"
     },
     {
       "id": "ATCc0EvyRMzqLfMsqKfy9",
@@ -35,6 +35,12 @@
       "roomNumber": 5,
       "email": "test@test.com",
       "body": "definetly found what i wanted! the meals was awesome!"
+    },
+    {
+      "id": "QWmP7xZ2BxnYZOZzbtfIJ",
+      "roomNumber": 4,
+      "email": "test@test.com",
+      "body": "great gym!"
     }
   ]
 }

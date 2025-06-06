@@ -123,8 +123,36 @@ function updateLogStatus() {
     logoutBtn.style.display = "none";
   }
 }
+
+async function editReview(id) {
+  const roomNumber = parseInt(
+    window.prompt("Wprowadż numer pokoju dla recenji")
+  );
+
+  if (isNaN(roomNumber) || roomNumber <= 0)
+    return window.alert("Wprowadż istniejący numer pokoju");
+
+  const email = window.prompt("Wprowadż email");
+  const body = window.prompt("Zmień recenzje");
+
+  if (!email || !body) return window.alert("Musisz wpisać chociaż coś :(");
+
+  try {
+    const response = await fetch(`http://localhost:3000/reviews/${id}`, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ roomNumber, email, body }),
+    });
+    if (response.ok) {
+      window.alert("Recenjia została zmieniona!");
+      location.reload();
+    }
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 async function loadReviews(btn, number) {
-  // тепер передаємо room як об'єкт
   const roomDiv = btn.closest(".Room");
   const isComments = roomDiv.querySelector(".commentsCont");
 
@@ -139,10 +167,6 @@ async function loadReviews(btn, number) {
 
     const sample = reviews.filter((r) => r.roomNumber === number).slice(0, 3);
 
-    // async function editReview(id) {
-    //   const reviewId = await fetch(`http://localhost:3000/reviews/${id}`);
-    //   console.log(reviewId);
-    // }
     const markup = `
       <div class="commentsCont">
         <h4>Reviews</h4>
@@ -152,7 +176,7 @@ async function loadReviews(btn, number) {
                 .map(
                   ({ email, body, id }) =>
                     `<p><span class="rev-span">${email}:</span> ${body}</p>
-                  <button onclick="console.log('${id}')">
+                  <button onclick="editReview('${id}')">
                   Edit
                   </button>`
                 )
@@ -168,6 +192,7 @@ async function loadReviews(btn, number) {
     roomDiv.insertAdjacentHTML("beforeend", `<p>Error loading reviews.</p>`);
   }
 }
+
 async function addReview(event) {
   event.preventDefault();
 
@@ -214,3 +239,4 @@ window.loadReviews = loadReviews;
 window.loginUser = loginUser;
 window.logoutUser = logoutUser;
 window.addReview = addReview;
+window.editReview = editReview;
