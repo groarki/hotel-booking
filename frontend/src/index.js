@@ -138,8 +138,9 @@ async function loadReviews(btn, number) {
     const reviews = await response.json();
 
     const sample = reviews.filter((r) => r.roomNumber === number).slice(0, 3);
+
     // async function editReview(id) {
-    //   const reviewId = await fetch(`http://localhost:3000/reviews/:${id}`);
+    //   const reviewId = await fetch(`http://localhost:3000/reviews/${id}`);
     //   console.log(reviewId);
     // }
     const markup = `
@@ -149,11 +150,11 @@ async function loadReviews(btn, number) {
           sample.length > 0
             ? sample
                 .map(
-                  ({ email, body }) =>
+                  ({ email, body, id }) =>
                     `<p><span class="rev-span">${email}:</span> ${body}</p>
-                  <button onclick()>
+                  <button onclick="console.log('${id}')">
                   Edit
-                  <button/>`
+                  </button>`
                 )
                 .join("")
             : "<p>No reviews for this room yet.</p>"
