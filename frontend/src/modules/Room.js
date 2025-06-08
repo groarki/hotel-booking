@@ -25,10 +25,11 @@ class Room {
   setCardNumber(number) {
     if (!/^\d{16}$/.test(number)) {
       alert("Card number must be 16 digits long");
-      return;
+      return false;
     }
 
     this.#cardNumber = number;
+    return true;
   }
   getCardNumber() {
     if (!this.#cardNumber) return "Invalid card number";

@@ -51,8 +51,18 @@ function bookRoom(number) {
   }
 
   const room = hotel.rooms.find((r) => r.number === number);
+  const cardNumber = prompt("Enter your card: ");
+
+  if (cardNumber === null || cardNumber.trim() === "") {
+    alert("Booking cancelled. Card number is required.");
+    return;
+  }
+  const isValidCard = room.setCardNumber(cardNumber);
+  if (!isValidCard) {
+    return;
+  }
+
   room.book();
-  room.setCardNumber(prompt("Enter your card: "));
   room.bookedBy = userLogged;
 
   hotel.saveToLocalStorage();
@@ -77,21 +87,21 @@ function cancelBooking(number) {
   }
 }
 
-function registerUser() {
+async function registerUser() {
   const userLogin = document.getElementById("username").value;
   const userPass = document.getElementById("password").value;
-  const registered = userManager.register(userLogin, userPass);
+  const registered = await userManager.register(userLogin, userPass);
   if (registered) {
     document.getElementById("userStatus").textContent =
       "Registration succeed! Log in please";
   }
 }
 
-function loginUser() {
+async function loginUser() {
   const userLogin = document.getElementById("username").value.trim();
   const userPass = document.getElementById("password").value.trim();
 
-  const logged = userManager.login(userLogin, userPass);
+  const logged = await userManager.login(userLogin, userPass);
   if (logged) {
     sessionStorage.setItem("loggedUsers", JSON.stringify(logged));
     document.getElementById(
@@ -106,6 +116,10 @@ function loginUser() {
 
 function logoutUser() {
   sessionStorage.removeItem("loggedUsers");
+
+  document.getElementById("username").value = "";
+  document.getElementById("password").value = "";
+
   userLogged = null;
   ui.updateUser(userLogged);
   updateLogStatus();

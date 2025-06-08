@@ -44,19 +44,6 @@ class UserManager {
       return null;
     }
   }
-
-  // saveUser() {
-  //   const saveData = this.users.map((u) => u.toJSON());
-  //   localStorage.setItem("users", JSON.stringify(saveData));
-  // }
-
-  // loadUser() {
-  //   const savedUser = localStorage.getItem("users");
-  //   if (savedUser) {
-  //     const parsed = JSON.parse(savedUser);
-  //     this.users = parsed.map((u) => new User(u.username, u.password));
-  //   }
-  // }
 }
 
 export default UserManager;

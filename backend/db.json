@@ -1,12 +1,6 @@
 {
   "reviews": [
     {
-      "id": "_zYB6wHWLyyi0tQ0yPVEh",
-      "roomNumber": 2,
-      "email": "test@test.com",
-      "body": "i was stunned when i saw the room! recomend!"
-    },
-    {
       "id": "Df7_uci9u-kaK3x2ojLJB",
       "roomNumber": 3,
       "email": "test@test.com",
@@ -25,5 +19,14 @@
       "body": "great gym!"
     }
   ],
-  "users": []
+  "users": [
+    {
+      "username": "nana",
+      "password": "$2b$10$I6OOsPO5RHP9vXrx5S.Og.Gc8qZpvdmYuxASs1Yr9Q6QMOBXMXV8m"
+    },
+    {
+      "username": "pupa",
+      "password": "$2b$10$lwSWiggFAenAbZXqObB1M.tqF.G7rj87OFKRsFtXTPT4UZts4NMRK"
+    }
+  ]
 }
