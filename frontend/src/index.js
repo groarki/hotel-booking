@@ -11,7 +11,7 @@ hotel.loadFromLocalStorage();
 
 let userLogged = null;
 
-const savedUser = sessionStorage.getItem("loggedInUsers");
+const savedUser = sessionStorage.getItem("loggedUsers");
 if (savedUser) {
   const user = JSON.parse(savedUser);
   userLogged = user.username;
@@ -20,7 +20,7 @@ if (savedUser) {
 
 const ui = new UI(hotel, userLogged);
 
-ui.updateUser(userLogged);
+// ui.updateUser(userLogged);
 updateLogStatus();
 
 loadRoomsWithReviews();

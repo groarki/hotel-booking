@@ -4,17 +4,49 @@ import bodyParser from "body-parser";
 import { Low } from "lowdb";
 import { JSONFile } from "lowdb/node";
 import { nanoid } from "nanoid";
+import bcrypt from "bcryptjs";
 
 const app = express();
 const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 const adapter = new JSONFile("db.json");
-const db = new Low(adapter, { reviews: [] });
+const db = new Low(adapter, { reviews: [], users: [] });
 
 app.get("/reviews", async (req, res) => {
   await db.read();
   res.json(db.data.reviews);
+});
+
+app.post("/signup", async (req, res) => {
+  await db.read();
+  db.data.users ||= [];
+
+  const { username, password } = req.body;
+
+  const exists = db.data.users.find((u) => u.username === username);
+  if (exists)
+    return res.status(400).json({ error: "Username is alresdy taken" });
+
+  const hashed = bcrypt.hashSync(password, 10);
+  db.data.users.push({ username, password: hashed });
+
+  await db.write();
+  return res.json({ username });
+});
+
+app.post("/login", async (res, req) => {
+  await db.read();
+  db.data.users ||= [];
+
+  const { username, password } = req.body;
+  const user = db.data.users.find((u) => u.username === username);
+  if (!user) return res.status(404).json({ error: "Username not found" });
+
+  const isMatch = bcrypt.compareSync(password, user.password);
+  if (!isMatch) return res.status(404).json({ error: "Invalid password" });
+
+  return res.json({ username });
 });
 
 app.post("/reviews", async (req, res) => {

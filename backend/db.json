@@ -24,5 +24,15 @@
       "email": "test@test.com",
       "body": "great gym!"
     }
+  ],
+  "users": [
+    {
+      "username": "nana",
+      "password": "$2b$10$yGv1BFleWUw8UNKl5FlZo.wiVK42i.uhPiD.lwTs0CEdgFQUu6BYW"
+    },
+    {
+      "username": "pupa",
+      "password": "$2b$10$nUz58zL8iZU6SywMoY2D9.JHwOqC2M36iABxae1zrF3eu3y0jMdS6"
+    }
   ]
 }
