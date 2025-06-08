@@ -22,7 +22,8 @@ const ui = new UI(hotel, userLogged);
 
 ui.updateUser(userLogged);
 updateLogStatus();
-ui.renderRooms();
+
+loadRoomsWithReviews();
 
 if (hotel.rooms.length === 0) {
   const room1 = new Room(1, "single", hotel);
@@ -40,6 +41,7 @@ if (hotel.rooms.length === 0) {
   hotel.addRoom(room6);
 
   hotel.saveToLocalStorage();
+  loadRoomsWithReviews();
 }
 
 function bookRoom(number) {
@@ -60,7 +62,7 @@ function bookRoom(number) {
       room.bookedBy
     }\nCard Number: ${room.getCardNumber()}`
   );
-  ui.renderRooms();
+  loadRoomsWithReviews();
 }
 
 function cancelBooking(number) {
@@ -71,7 +73,7 @@ function cancelBooking(number) {
 
     hotel.saveToLocalStorage();
 
-    ui.renderRooms();
+    loadRoomsWithReviews();
   }
 }
 
@@ -98,7 +100,7 @@ function loginUser() {
     userLogged = userLogin;
     ui.updateUser(userLogged);
     updateLogStatus();
-    ui.renderRooms();
+    loadRoomsWithReviews();
   }
 }
 
@@ -107,7 +109,7 @@ function logoutUser() {
   userLogged = null;
   ui.updateUser(userLogged);
   updateLogStatus();
-  ui.renderRooms();
+  loadRoomsWithReviews();
   alert("You are logged out");
 }
 
@@ -135,7 +137,7 @@ async function editReview(id) {
   const email = window.prompt("Wprowadż email");
   const body = window.prompt("Zmień recenzje");
 
-  if (!email || !body) return window.alert("Musisz wpisać chociaż coś :(");
+  if (!email || !body) alert("Musisz wpisać chociaż coś :(");
 
   try {
     const response = await fetch(`http://localhost:3000/reviews/${id}`, {
@@ -145,26 +147,57 @@ async function editReview(id) {
     });
     if (response.ok) {
       alert("Recenzja została zmieniona!");
-      location.reload();
+
+      loadRoomsWithReviews();
+
+      const commentsDiv = document.querySelector(".commentsCont");
+      if (commentsDiv) {
+        location.reload();
+      }
+    } else {
+      alert("Failed to update review");
     }
   } catch (error) {
     alert("Error while editing review:", error);
   }
 }
+
 async function deleteReview(id, roomNumber) {
   const confirmed = confirm("Napewno chcesz usunąć tę recenzje?");
   if (!confirmed) return;
+
   try {
     const response = await fetch(`http://localhost:3000/reviews/${id}`, {
       method: "DELETE",
       headers: { "Content-Type": "application/json" },
     });
+
     if (response.ok) {
       alert(`Recenzja została usunięta z pokoju nr ${roomNumber}`);
-      location.reload();
+      loadRoomsWithReviews();
+
+      const commentsDiv = document.querySelector(".commentsCont");
+      if (commentsDiv) {
+        location.reload();
+      }
+    } else {
+      alert("Failed to delete review");
     }
   } catch (error) {
     alert("Error while deleting review", error);
+  }
+}
+
+async function loadRoomsWithReviews() {
+  try {
+    const response = await fetch("http://localhost:3000/reviews");
+    if (response.ok) {
+      ui.renderRooms(reviews);
+    } else {
+      ui.renderRooms();
+    }
+  } catch (error) {
+    ui.renderRooms();
   }
 }
 
@@ -230,7 +263,7 @@ async function addReview(event) {
     });
     if (response.ok) {
       alert("Review added!");
-      loadReviews(event.target, roomNumber);
+      loadRoomsWithReviews();
     }
   } catch (error) {
     console.error("Error adding review:", error);
@@ -256,3 +289,4 @@ window.logoutUser = logoutUser;
 window.addReview = addReview;
 window.editReview = editReview;
 window.deleteReview = deleteReview;
+window.loadRoomsWithReviews = loadRoomsWithReviews;

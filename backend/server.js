@@ -35,7 +35,7 @@ app.put("/reviews/:id", async (req, res) => {
   const recencja = req.params.id;
   const { roomNumber, email, body } = req.body;
 
-  await db.read(recencja);
+  await db.read();
   const index = db.data.reviews.findIndex((r) => r.id === recencja);
 
   if (index === -1) {

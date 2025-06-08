@@ -1,18 +1,6 @@
 {
   "reviews": [
     {
-      "id": "xK4hyRIlmdJY4Gdqki3LL",
-      "roomNumber": 1,
-      "email": "test@mail.com",
-      "body": "abudabi"
-    },
-    {
-      "id": "ATCc0EvyRMzqLfMsqKfy9",
-      "roomNumber": 1,
-      "email": "test@test.com",
-      "body": "aweet"
-    },
-    {
       "id": "X4bpenbflvdNI22FKXJpB",
       "roomNumber": 2,
       "email": "test@test.com",

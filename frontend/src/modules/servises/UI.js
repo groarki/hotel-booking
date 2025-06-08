@@ -6,11 +6,13 @@ class UI {
   updateUser(user) {
     this.userLogged = user;
   }
-  renderRooms() {
+  renderRooms(reviews = []) {
     const container = document.getElementById("roomsContainer");
     container.innerHTML = "";
 
     this.hotel.rooms.forEach((room) => {
+      const count = reviews.filter((r) => r.roomNumber === room.number).length;
+
       const isPremium = room.premiumService
         ? `<p><strong>Premium Service:</strong> ${room.premiumService}</p>`
         : "";
@@ -37,8 +39,10 @@ class UI {
           ? "disabled"
           : ""
       }>Cancel</button>
+      
       <button onclick="loadReviews(this, ${room.number})">Load Reviews</button>
-        `;
+      <span>Reviews: ${count} </span>`;
+
       container.appendChild(roomDiv);
     });
     this.hotel.saveToLocalStorage();
