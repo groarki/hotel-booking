@@ -29,6 +29,7 @@ class UI {
         <p>Status: ${room.isAvailable ? "Available" : "Booked"}</p>
         ${isPremium}
         ${bookedBy}
+        <p><strong>Reviews: ${count} </strong></p>
         <button onclick="bookRoom(${room.number})" ${
         room.isAvailable && this.userLogged ? "" : "disabled"
       }>Book</button>
@@ -39,9 +40,9 @@ class UI {
           ? "disabled"
           : ""
       }>Cancel</button>
-      
-      <button onclick="loadReviews(this, ${room.number})">Load Reviews</button>
-      <span>Reviews: ${count} </span>`;
+      <button onclick="loadReviews(this, ${room.number})" ${
+        count <= 0 ? "disabled" : ""
+      }>Load Reviews</button>`;
 
       container.appendChild(roomDiv);
     });

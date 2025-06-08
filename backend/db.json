@@ -1,12 +1,6 @@
 {
   "reviews": [
     {
-      "id": "X4bpenbflvdNI22FKXJpB",
-      "roomNumber": 2,
-      "email": "test@test.com",
-      "body": "great room"
-    },
-    {
       "id": "_zYB6wHWLyyi0tQ0yPVEh",
       "roomNumber": 2,
       "email": "test@test.com",

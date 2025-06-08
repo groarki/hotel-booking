@@ -192,12 +192,14 @@ async function loadRoomsWithReviews() {
   try {
     const response = await fetch("http://localhost:3000/reviews");
     if (response.ok) {
+      const reviews = await response.json();
       ui.renderRooms(reviews);
     } else {
-      ui.renderRooms();
+      ui.renderRooms([]);
     }
   } catch (error) {
-    ui.renderRooms();
+    console.error("Error loading reviews:", error);
+    ui.renderRooms([]);
   }
 }
 
