@@ -12,10 +12,16 @@ class UserManager {
       });
 
       if (response.ok) {
-        const user = new User(username, password);
+        alert("Registration successful");
+        return new User(username, password);
+      } else {
+        const error = await response.json();
+        alert(error.error || "Registration failed");
+        return null;
       }
     } catch (error) {}
     alert("Problem occured", error);
+    return null;
   }
 
   async login(username, password) {
@@ -26,9 +32,16 @@ class UserManager {
         body: JSON.stringify({ username, password }),
       });
 
-      sessionStorage.setItem("LoggedUsers", JSON.stringify({ username }));
+      if (response.ok) {
+        return { username };
+      } else {
+        const error = await response.json();
+        alert(error.error || "Login failed");
+        return null;
+      }
     } catch (error) {
       alert("Username or password is invalid, please try again");
+      return null;
     }
   }
 

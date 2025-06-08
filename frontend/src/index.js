@@ -20,7 +20,7 @@ if (savedUser) {
 
 const ui = new UI(hotel, userLogged);
 
-// ui.updateUser(userLogged);
+ui.updateUser(userLogged);
 updateLogStatus();
 
 loadRoomsWithReviews();
@@ -93,10 +93,10 @@ function loginUser() {
 
   const logged = userManager.login(userLogin, userPass);
   if (logged) {
+    sessionStorage.setItem("loggedUsers", JSON.stringify(logged));
     document.getElementById(
       "userStatus"
     ).textContent = `Logged as ${userLogin}`;
-    sessionStorage.setItem("loggedInUsers", JSON.stringify(logged));
     userLogged = userLogin;
     ui.updateUser(userLogged);
     updateLogStatus();
@@ -105,7 +105,7 @@ function loginUser() {
 }
 
 function logoutUser() {
-  sessionStorage.removeItem("loggedInUsers");
+  sessionStorage.removeItem("loggedUsers");
   userLogged = null;
   ui.updateUser(userLogged);
   updateLogStatus();

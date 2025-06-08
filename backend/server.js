@@ -35,7 +35,7 @@ app.post("/signup", async (req, res) => {
   return res.json({ username });
 });
 
-app.post("/login", async (res, req) => {
+app.post("/login", async (req, res) => {
   await db.read();
   db.data.users ||= [];
 
